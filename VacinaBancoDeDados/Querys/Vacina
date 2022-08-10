@@ -1,0 +1,6 @@
+ select * from vacina;
+insert into vacina (paisOrigem, estagioPesquisa, dataInicioPesquisa, nomePesquisadorResponsavel)
+value ("Brasil", 1, "2022-08-03", "Tatiani");
+
+insert into vacina (paisOrigem, estagioPesquisa, dataInicioPesquisa, nomePesquisadorResponsavel)
+value ("China", 2, "2025-08-03", "Anna");
