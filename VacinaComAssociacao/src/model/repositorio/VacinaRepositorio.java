@@ -109,7 +109,7 @@ public class VacinaRepositorio {
 
 			while (resultado.next()) {
 				Vacina vacinaBuscada = new Vacina();
-				vacinaBuscada.setId(resultado.getInt("id"));
+				vacinaBuscada.setId(resultado.getInt("idVacina"));
 				vacinaBuscada.setEstagioPesquisa(resultado.getInt("estagioPesquisa"));
 
 				int idResponsavel = resultado.getInt("idResponsavel");

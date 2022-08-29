@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.BancoDeDados;
 import model.entidade.Pessoa;
+import model.entidade.Vacina;
 
 public class PessoaRepositorio {
 
@@ -27,7 +29,7 @@ public class PessoaRepositorio {
 			stmt.setString(2, novaPessoa.getCpf());
 			stmt.setInt(3, novaPessoa.getMatricula());
 			stmt.setDate(4, new Date(novaPessoa.getDataNascimento().getTime())); // (date) ta convertendo pra data
-																					// do sql
+			// do sql
 
 			stmt.execute();
 
@@ -61,7 +63,7 @@ public class PessoaRepositorio {
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
 				pesquisadorBuscado = new Pessoa();
-				pesquisadorBuscado.setId(resultado.getInt("id"));
+				pesquisadorBuscado.setId(resultado.getInt("idPesquisador"));
 				pesquisadorBuscado.setNome(resultado.getString("nome"));
 				pesquisadorBuscado.setCpf(resultado.getString("cpf"));
 				pesquisadorBuscado.setMatricula(resultado.getInt("matricula"));
@@ -74,6 +76,38 @@ public class PessoaRepositorio {
 			BancoDeDados.closeConnection(conexao);
 		}
 		return pesquisadorBuscado;
+
+	}
+
+	public ArrayList<Pessoa> consultarTodos() {
+		
+		ArrayList<Pessoa> pesquisadores = new ArrayList();
+
+		Connection conexao = BancoDeDados.getConnection();
+		String sql = " SELECT * FROM PESQUISADOR";
+		PreparedStatement stmt = BancoDeDados.getPreparedStatement(conexao, sql);
+
+		try {
+			ResultSet resultado = stmt.executeQuery();
+			while  (resultado.next()) {
+				Pessoa pesquisadorBuscado = new Pessoa();
+				pesquisadorBuscado.setId(resultado.getInt("idPesquisador"));
+				pesquisadorBuscado.setNome(resultado.getString("nome"));
+				pesquisadorBuscado.setCpf(resultado.getString("cpf"));
+				pesquisadorBuscado.setMatricula(resultado.getInt("matricula"));
+				pesquisadorBuscado.setDataNascimento(resultado.getDate("dataNascimento"));
+				
+				pesquisadores.add(pesquisadorBuscado);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar pesquisador.\nCausa: " + e.getMessage());
+		} finally {
+			BancoDeDados.closePreparedStatement(stmt);
+			BancoDeDados.closeConnection(conexao);
+		}
+		return pesquisadores;
+
 	}
 
 	// Update
@@ -90,7 +124,7 @@ public class PessoaRepositorio {
 			stmt.setString(2, pessoa.getCpf());
 			stmt.setInt(3, pessoa.getMatricula());
 			stmt.setDate(4, new java.sql.Date(pessoa.getDataNascimento().getTime())); // (date) ta convertendo pra
-																						// data do sql
+			// data do sql
 			stmt.setInt(5, pessoa.getId());
 			stmt.execute();
 
