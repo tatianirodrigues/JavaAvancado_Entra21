@@ -13,7 +13,7 @@ import java.util.Date;
 		private String paisOrigem;
 		private int estagioPesquisa;
 		private Date dataInicioPesquisa;
-		private String nomePesquisadorResponsavel;
+		private Pessoa pesquisadorResponsavel;
 		
 		
 		//Métodos
@@ -37,12 +37,7 @@ import java.util.Date;
 		public void setDataInicioPesquisa(Date dataInicioPesquisa) {
 			this.dataInicioPesquisa = dataInicioPesquisa;
 		}
-		public String getNomePesquisadorResponsavel() {
-			return nomePesquisadorResponsavel;
-		}
-		public void setNomePesquisadorResponsavel(String nomePesquisadorResponsavel) {
-			this.nomePesquisadorResponsavel = nomePesquisadorResponsavel;
-		}
+		
 		public int getId() {
 			return id;
 		}
@@ -51,11 +46,18 @@ import java.util.Date;
 		}
 		
 		//ToString
+		
+		public Pessoa getPesquisadorResponsavel() {
+			return pesquisadorResponsavel;
+		}
 		@Override
 		public String toString() {
 			return "Vacina [id=" + id + ", paisOrigem=" + paisOrigem + ", estagioPesquisa=" + estagioPesquisa
-					+ ", dataInicioPesquisa=" + dataInicioPesquisa + ", nomePesquisadorResponsavel="
-					+ nomePesquisadorResponsavel + "]";
+					+ ", dataInicioPesquisa=" + dataInicioPesquisa + ", pesquisadorResponsavel="
+					+ pesquisadorResponsavel + "]";
+		}
+		public void setPesquisadorResponsavel(Pessoa pesquisadorResponsavel) {
+			this.pesquisadorResponsavel = pesquisadorResponsavel;
 		}
 		
 		
